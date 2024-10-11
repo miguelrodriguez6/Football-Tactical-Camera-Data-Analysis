@@ -1,0 +1,16 @@
+<div class="container">
+  <h1 class="title">Selecciona un partido.</h1>
+  <mat-card class="card">
+    <mat-card-content>
+      <mat-form-field class="selector">
+        <mat-label>Selecciona un partido</mat-label>
+        <mat-select [(ngModel)]="gameService.selectedGame" (selectionChange)="onSelectionChange($event)">
+          <mat-option [value]="null"></mat-option>
+          <mat-option *ngFor="let game of gameService.gamesList" [value]="game.id">{{game.id}} - {{ game.description }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="redirectToHomePage()" [disabled]="gameService.currentGameId==null">Continuar</button>
+    </mat-card-content>
+  </mat-card>
+  <button mat-raised-button color="accent" (click)="redirectToAddGame()" class="add-button">Añadir nuevo partido</button>
+</div>

@@ -1,0 +1,23 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(165px, auto);
+  gap: 10px;
+  height: 80vh;
+  overflow-y: auto;
+}
+
+.grid-item {
+  background-color: #ddd;
+  padding: 20px;
+  max-height: 120px;
+}
+
+label {
+  display: block;
+  text-align: center;
+}
+
+
+
+

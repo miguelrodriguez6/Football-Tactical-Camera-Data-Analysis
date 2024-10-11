@@ -1,0 +1,161 @@
+<div style="text-align: right; margin-top: 10px">
+  <mat-form-field appearance="fill" style="width: 150px;">
+    <mat-label>Formato</mat-label>
+    <mat-select #exportFormat>
+      <mat-option value="PDF">PDF</mat-option>
+      <mat-option value="PNG">PNG</mat-option>
+      <mat-option value="JPEG">JPEG</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button color="primary" style="margin-right: 12px;" (click)="export(exportFormat.value)" disabled="{{exportFormat.value==null}}">Exportar {{exportFormat.value}}</button>
+</div>
+
+<mat-card id="export" style="background-color: lightgrey">
+  <mat-toolbar color="primary" class="center-item">
+    <span>Resumen del Partido</span>
+  </mat-toolbar>
+
+  <mat-card>
+    <mat-card-header class="center-item">
+      <mat-label class="section-title">Datos del Partido:</mat-label>
+    </mat-card-header>
+    <mat-card-content>
+      <p><span style="font-weight: bold">Partido:</span> {{ gameService.currentGame.description.split(':')[0] }}</p>
+      <p><span style="font-weight: bold">Fecha del partido:</span> {{ gameService.currentGame.description.split(':')[1] }}</p>
+      <p><span style="font-weight: bold">Hora de inicio:</span> {{ getFormattedTime(gameService.currentGame.startTime) }}</p>
+      <p><span style="font-weight: bold">Resultado final:</span> {{ gameService.currentGame.result }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-content>
+      <div class="team-container">
+        <div class="team">
+          <table class="table border">
+            <caption style="text-decoration: underline; margin-bottom: 10px;">Jugadores Equipo Local</caption>
+            <tr>
+              <th>Dorsal</th>
+              <th>Nombre</th>
+              <th>Posición</th>
+            </tr>
+            <tr *ngFor="let jugador of homeTeamPlayers" style="text-align: center">
+              <td>{{ jugador.number }}</td>
+              <td>{{ jugador.name }}</td>
+              <td>{{ jugador.position }}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="team">
+          <table class="table">
+            <caption style="text-decoration: underline; margin-bottom: 10px;">Jugadores Equipo Visitante</caption>
+            <tr>
+              <th>Dorsal</th>
+              <th>Nombre</th>
+              <th>Posición</th>
+            </tr>
+            <tr *ngFor="let jugador of awayTeamPlayers" style="text-align: center">
+              <td>{{ jugador.number }}</td>
+              <td>{{ jugador.name }}</td>
+              <td>{{ jugador.position }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header class="center-item">
+      <mat-label class="section-title">Posesión:</mat-label>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="possession-info">
+        <p>Equipo Local: {{ homeTeamPossession }}%</p>
+        <p class="visitor">Equipo Visitante: {{ awayTeamPossession }}%</p>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar home" [style.width.%]="homeTeamPossession"></div>
+        <div class="progress-bar away" [style.width.%]="awayTeamPossession"></div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+<!--  <mat-card>-->
+<!--    <mat-card-header class="center-item">-->
+<!--      <mat-label class="section-title">Eventos del partido:</mat-label>-->
+<!--    </mat-card-header>-->
+<!--    <mat-card-content>-->
+<!--      <p *ngFor="let event of this.events" ><mat-icon>{{ event.icon }}</mat-icon> {{ event.minute }}:{{event.second}} {{event.name}}</p>-->
+<!--    </mat-card-content>-->
+<!--    <hr>-->
+<!--    <mat-card>-->
+<!--      <mat-label><mat-icon>sports_soccer</mat-icon> Gol </mat-label>-->
+<!--      <mat-label><mat-icon>arrow_forward</mat-icon> Entra el jugador. </mat-label>-->
+<!--      <mat-label><mat-icon>arrow_back</mat-icon> Sale el jugador. </mat-label>-->
+<!--    </mat-card>-->
+<!--  </mat-card>-->
+
+  <mat-card>
+    <mat-card-header class="center-item">
+      <mat-label class="section-title">Otras estadísticas del partido:</mat-label>
+    </mat-card-header>
+    <mat-card-content class="chart-container">
+      <mat-card class="grid-item" style="width: 40%">
+        <p style="font-weight: bold">Jugadores que más distancia han recorrido:</p>
+        <table>
+          <thead>
+          <tr>
+            <th>Jugador</th>
+            <th>Distancia (km)</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let jugador of topThreePlayersByDistance">
+            <td style="text-align: center">{{ jugador['name'] }}</td>
+            <td style="text-align: center">{{ convertMetersToKilometers(jugador['stat']) | number:'1.2-2' }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </mat-card>
+      <mat-card class="grid-item" style="width: 40%">
+        <p style="font-weight: bold">Jugadores más rápidos del partido:</p>
+        <table>
+          <thead>
+          <tr>
+            <th>Jugador</th>
+            <th>Velocidad Máxima (km/h)</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let jugador of topSpeedPlayers">
+            <td style="text-align: center">{{ jugador.player.name }}</td>
+            <td style="text-align: center">{{ jugador.topSpeed }}</td>
+          </tr>
+          </tbody>
+        </table>
+
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header class="center-item">
+      <mat-label class="section-title">Gráficos por tipo de carrera:</mat-label>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-card class="chart-container">
+        <mat-card class="chart-item" style="border: 1px solid black;">
+          <canvas id="homeChart" width="400" height="400"></canvas>
+          <p><span style="font-weight: bold">Distancia total recorrida:</span> {{convertMetersToKilometers(homeTeamTotalDistance) | number:'1.2-2'}} km.</p>
+        </mat-card>
+        <mat-card class="chart-item" style="border: 1px solid black;">
+          <canvas id="awayChart" width="400" height="400"></canvas>
+          <p><span style="font-weight: bold">Distancia total recorrida:</span> {{convertMetersToKilometers(awayTeamTotalDistance) | number:'1.2-2'}} km.</p>
+        </mat-card>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+
+</mat-card>
+
+

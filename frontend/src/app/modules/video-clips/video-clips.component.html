@@ -1,0 +1,11 @@
+<div class="grid-container">
+  <div class="grid-item" *ngFor="let item of dataService.clipsData; let i = index">
+    <video id="video{{i}}" style="display: block" width="200px" height="auto" controls preload="auto" (click)="toggleFullScreen('video' + i)">
+<!--      <source [src]="'/assets/media/video/' + gameService.currentGame.videoUrl+ '#t=' + item.start + ',' + item.end" type="video/mp4">-->
+      <source [src]="'/assets/media/video/' + gameService.currentGame.videoUrl+ '#t=' + item.start" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="overlay" (click)="toggleFullScreen('video' + i)"></div>
+    <label> {{item.name}} - {{convertirSegundosAMinutos(item.start)}} </label>
+  </div>
+</div>

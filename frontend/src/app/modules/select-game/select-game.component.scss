@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 75vh;
+}
+
+.title {
+  margin-bottom: 20px;
+}
+
+.card {
+  width: 50%;
+  max-width: 500px;
+}
+
+.selector {
+  width: 100%;
+}
+
+.add-button {
+  margin-top: 20px;
+}

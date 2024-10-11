@@ -1,0 +1,41 @@
+.video-form-container{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Dos columnas de igual ancho */
+  margin: 0 25px 25px 25px;
+  padding: 15px;
+}
+
+.video-container{
+  grid-column: 3;
+  padding: 3px 3px 0 3px;
+  border: black solid 5px;
+  background-color: black;
+  border-radius: 10px;
+}
+
+.form-container{
+  grid-column: 1;
+}
+
+.select{
+  width: 300px;
+  margin-top: 5px;
+}
+
+label{
+  color: gray;
+}
+
+.nav-link {
+  min-width: auto;
+  margin: 0 8px;
+}
+
+.main-container{
+  background-color: #F5F5F2;
+  margin-top: 15px;
+}
+
+.nav-link.active {
+  opacity: 0.7;
+}

@@ -1,0 +1,95 @@
+mat-card{
+  margin: 10px;
+  padding: 5px;
+}
+
+.center-item{
+  justify-content: center;
+}
+
+.section-title{
+  text-decoration: underline;
+}
+
+.team-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.team {
+  flex: 1;
+}
+
+.team ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.table{
+  width: 100%;
+}
+
+.team p {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.progress-container {
+  position: relative;
+  width: 100%;
+  height: 30px; /* Ajusta la altura según tus necesidades */
+  background-color: #f0f0f0; /* Color de fondo de la barra */
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.progress-bar.home {
+  background-color: blue;
+  left: 0;
+}
+
+.progress-bar.away {
+  background-color: red;
+  right: 0;
+}
+
+.possession-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.visitor {
+  text-align: right;
+}
+
+.border{
+  border-right: 1px solid black;
+}
+
+.chart-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px; /* Espacio entre los elementos, ajusta según tus necesidades */
+}
+
+.chart-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  //flex: 1 1 auto; /* Permite que los elementos crezcan y se encojan según sea necesario */
+}
+
+.grid-item{
+  margin: auto;
+  padding: 10px;
+}
+
+

@@ -1,0 +1,40 @@
+<mat-card class="main-container">
+  <mat-card class="video-form-container">
+    <mat-card class="form-container">
+      <mat-card-content>
+        <form (ngSubmit)="onSubmit()">
+          <label>Selecciona un equipo:</label>
+          <mat-form-field class="select">
+            <mat-select [(ngModel)]="selectedTeam" name="selectedTeam" placeholder="equipo">
+              <mat-option *ngFor="let item of teams" [value]="item.value">{{item.label}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <label>Selecciona un tipo de jugada:</label>
+          <mat-form-field class="select">
+            <mat-select [(ngModel)]="selectedPlay" name="selectedPlay" placeholder="jugada">
+              <mat-option *ngFor="let item of plays" [value]="item.value">{{item.label}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <button mat-raised-button color="primary" type="submit" routerLink="clips">Obtener clips de vídeo</button>
+          <br>
+          <br>
+          <hr>
+        </form>
+        <div *ngIf="dataService.clipsPlayers.size>0">
+          <label>Selecciona un jugador:</label>
+          <mat-form-field class="select">
+            <mat-select [(ngModel)]="selectedPlayer" name="selectedPlayer" placeholder="player">
+              <mat-option *ngFor="let item of dataService.clipsPlayers" [value]="item">{{item}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <button mat-raised-button color="primary" type="submit" routerLink="clips" (click)="onPlayerFilter()" [disabled]="!selectedPlayer">Filtrar por jugador</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <router-outlet></router-outlet>
+  </mat-card>
+</mat-card>
+

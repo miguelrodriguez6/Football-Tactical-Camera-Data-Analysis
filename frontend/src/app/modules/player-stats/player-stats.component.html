@@ -1,0 +1,36 @@
+<mat-toolbar color="primary" class="back-button-toolbar">
+  <button mat-icon-button (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+    <span class="toolbar-title">Volver al análisis del partido</span>
+  </button>
+</mat-toolbar>
+
+<div class="content-container">
+  <mat-card class="player-card">
+    <mat-card-header>
+      <div class="player-info">
+        <h2 class="player-name">{{ selectedPlayer.name }}</h2>
+        <p class="player-position">{{ selectedPlayer.position }}, {{ selectedPlayer.number }}</p>
+      </div>
+    </mat-card-header>
+    <mat-card-content *ngIf="playerStats">
+      <mat-card class="small-card">
+        <p><strong>Minutos totales jugados:</strong> {{ playerStats.minutes }} minutos.</p>
+        <p><strong>Distancia recorrida durante el partido:</strong> {{ convertMetersToKilometers(playerStats.distance) }} km.</p>
+      </mat-card>
+      <mat-card class="small-card">
+        <p><strong>Distancia recorrida a alta velocidad:</strong> {{ convertMetersToKilometers(playerStats.highSpeedRunning) }} km.</p>
+        <p><strong>Número de sprints de alta intensidad:</strong> {{ playerStats.numberOfHighIntensityRuns }} sprints.</p>
+      </mat-card>
+     <mat-card class="small-card">
+       <p><strong>Velocidad máxima alcanzada:</strong> {{ playerStats.topSpeed }} km/h.</p>
+       <p><strong>Velocidad media:</strong> {{ playerStats.averageSpeed }} km/h.</p>
+      </mat-card>
+
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="chart-card">
+    <canvas id="circularChart" width="400" height="400"></canvas>
+  </mat-card>
+</div>

@@ -1,0 +1,19 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 90%;
+  margin: auto;
+}
+
+.footer-text {
+  font-size: 14px;
+  text-align: center;
+}

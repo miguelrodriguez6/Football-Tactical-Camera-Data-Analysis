@@ -1,0 +1,54 @@
+.back-button-toolbar {
+  margin: 5px;
+  .toolbar-title {
+    margin-left: 8px;
+  }
+}
+
+.content-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 16px;
+
+  .player-card {
+    flex: 1;
+    margin-right: 16px;
+    height: 500px;
+    border: 1px solid black;
+
+    .player-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .player-name {
+        margin: 0;
+      }
+
+      .player-position {
+        margin: 0;
+        color: gray;
+      }
+    }
+  }
+
+  .chart-card {
+    border: 1px solid black;
+    width: 50%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    canvas {
+      display: block;
+    }
+  }
+}
+
+.small-card{
+  padding: 10px;
+  margin: 10px;
+}

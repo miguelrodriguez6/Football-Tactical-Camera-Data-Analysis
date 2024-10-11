@@ -1,0 +1,29 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button routerLink="">
+    <img ngSrc="assets/media/images/logo.png" alt="Logo" class="logo" height="450" width="459">
+  </button>
+  <span class="app-name">FootballData</span>
+
+  <span class="spacer"></span>
+  <div *ngIf="userService.loggedUser && gameService.selectedGame">
+    <a mat-button routerLink="/home" class="nav-link">Inicio</a>
+    <a mat-button routerLink="/" class="nav-link">Seleccionar partido</a>
+    <a mat-button routerLink="/home/analysis/video" class="nav-link">Cámara táctica</a>
+    <a mat-button routerLink="/home/2d-analysis/map" class="nav-link">Análisis 2D</a>
+    <a mat-button routerLink="/home/export-resume" class="nav-link">Informe del partido</a>
+  </div>
+  <span class="spacer"></span>
+  <div *ngIf="!userService.loggedUser">
+    <a mat-button routerLink="/login" class="nav-link">Iniciar sesión</a>
+    <a mat-button routerLink="/register" class="nav-link">Registrarse</a>
+  </div>
+  <div *ngIf="userService.loggedUser">
+    <button mat-button [matMenuTriggerFor]="menu">
+      {{userService.loggedUser}}
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="userService.logOutUser(); gameService.setAllToNull();">Cerrar sesión.</button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

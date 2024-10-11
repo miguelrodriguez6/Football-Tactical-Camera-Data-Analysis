@@ -1,0 +1,82 @@
+<mat-card class="main-container">
+  <mat-card class="pitch-form-container">
+    <mat-card class="second-pitch-form-container">
+      <mat-card class="gameTime">{{ this.mapService.gameTime }}</mat-card>
+      <br>
+      <button mat-raised-button color="primary" (click)="initialPosition()">Posición inicial</button>
+      <button mat-flat-button color="primary" (click)="startVisualization()">Iniciar visualización</button>
+      <button mat-flat-button color="warn" (click)="cleanData()">Limpiar datos</button>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Minuto inicial:</mat-label>
+        <input matInput type="number" min="0" max="90" placeholder="0 - 90" [(ngModel)]="initialMinute">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Minuto final:</mat-label>
+        <input matInput type="number" min="0" max="90" placeholder="0 - 90" [(ngModel)]="finalMinute">
+      </mat-form-field>
+      <mat-card>
+        <mat-action-row>
+          <button mat-icon-button color="primary" matTooltip="Parar visualización" (click)="pause()">
+            <mat-icon>pause</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" matTooltip="Reanudar visualización" (click)="resume()">
+            <mat-icon>play_arrow</mat-icon>
+          </button>
+        </mat-action-row>
+      </mat-card>
+      <mat-card class="view-player-stats highlighted-card" *ngIf="selectedPlayer">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-label>Jugador seleccionado</mat-label>
+        </mat-card-header>
+        <mat-card-content>
+          <p><strong>Nombre:</strong>    {{ selectedPlayer.name }}</p>
+          <p><strong>Dorsal:</strong>   {{ selectedPlayer.number }}</p>
+          <p><strong>Posición:</strong>   {{ selectedPlayer.position }}</p>
+          <a mat-raised-button (click)="viewPlayerStats()">Ver estadísticas</a>
+        </mat-card-content>
+      </mat-card>
+    </mat-card>
+    <mat-card class="pitch-2d">
+      <router-outlet></router-outlet>
+    </mat-card>
+    <mat-card class="form-container">
+      <mat-card-content>
+        <form>
+          <label>Equipo local:</label>
+          <mat-form-field class="select">
+            <mat-select [(ngModel)]="selectedPlayer" name="selectedHomePlayer" placeholder="Jugador equipo local" (ngModelChange)="onSelectPlayer($event)">
+              <mat-option [value]=undefined></mat-option>
+              <mat-option *ngFor="let item of homePlayersList" [value]="item">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <label>Equipo visitante:</label>
+          <mat-form-field class="select">
+            <mat-select [(ngModel)]="selectedPlayer" name="selectedAwayPlayer" placeholder="Jugador equipo visitante" (ngModelChange)="onSelectPlayer($event)">
+              <mat-option [value]=undefined></mat-option>
+              <mat-option *ngFor="let item of awayPlayerList" [value]="item">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <label>Goles:</label>
+          <mat-form-field class="select">
+            <mat-select [(ngModel)]="selectedGoal" name="selectedGoal" placeholder="Gol" (ngModelChange)="onSelectEvent($event)">
+              <mat-option [value]=""></mat-option>
+              <mat-option *ngFor="let item of goalList" [value]="item.alignedFrameid">{{item.minute}}:{{item.second.toString().padStart(2, '0')}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <label>Corners:</label>
+          <mat-form-field class="select">
+            <mat-select [(ngModel)]="selectedCorner" name="selectedCorner" placeholder="Corner" (ngModelChange)="onSelectEvent($event)">
+              <mat-option [value]=""></mat-option>
+              <mat-option *ngFor="let item of cornerList" [value]="item.alignedFrameid">{{item.minute}}:{{item.second.toString().padStart(2, '0')}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </mat-card>
+</mat-card>
